@@ -1,0 +1,25 @@
+delimiter //
+drop procedure if exists empDetails;
+create procedure empDetails(in  eno int,out  e_name varchar(30),out d_code varchar(30))
+begin
+    select empname,deptcode into e_name,d_code from emp where empcode=eno;
+end;//
+set @e_name=null;//
+set @d_code=null;//
+call empDetails(7939,@e_name,@d_code);//
+select @e_name as empname ,@d_code as deptcode;//
+---------------------------------------------------------------------------------------------
+drop procedure empMaxBasic;//
+create procedure empMaxBasic(out e_code int,out e_name varchar(30),out e_dept varchar(30),out e_basic int)
+begin
+    select empcode,empname,deptcode,basicpay into e_code,e_name,e_dept,e_basic
+    from emp where basicpay=(select max(basicpay) from emp);
+end;//
+set @e_code=0;//
+set @e_name=null;//
+set @e_dept=null;//
+set @e_basic=0;//
+call empMaxBasic(@e_code,@e_name,@e_dept,@e_basic);//
+select @e_code as empcode,@e_name as empname,@e_dept as deptcode,@e_basic as salary;//
+
+

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<!--bootstrap files for css-->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+		integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+	<div class="container-fluid mt-4">
+		<div class="row">
+			<div class="col-md-6 offset-md-3">
+				<div class="card px-3">
+					<h2 class="card-header text-center text-danger"><span><i
+								class="fa-solid fa-envelope me-2"></i></span>Send Data</h2>
+					<div th:if="${session.message}" th:classappend="${session.message.type}" class="alert text-center fw-bold">
+						<span th:text="${session.message.content}"></span>
+						<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+						<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+					</div>
+					<div class="card-body">
+						<form th:action="@{/sendMail}" method="post" enctype="multipart/form-data">
+							<!--first feild name-->
+							<div class="input-group mt-2">
+								<span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+								<input type="text" name="firstName" placeholder="Enter first name" class="form-control"
+									required />
+							</div>
+
+							<!--last name field-->
+							<div class="input-group mt-2">
+								<span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+								<input type="text" name="lastName" placeholder="Enter last name" class="form-control"
+									required />
+							</div>
+
+							<!--phone field-->
+							<div class="input-group mt-2">
+								<span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+								<input type="number" class="form-control" placeholder="Enter your phone number"
+									name="phone" required />
+							</div>
+
+							<!--email field -->
+							<div class="input-group mt-3">
+								<span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+								<input type="email" class="form-control" placeholder="Enter your email" name="email" />
+							</div>
+							<!--about the project-->
+							<div class="form-group mt-3">
+								<textarea id="" name="about" placeholder="Describe project" rows="4"
+									class="form-control"></textarea>
+							</div>
+
+							<!--select the proper files-->
+							<div class="form-group mt-3">
+								<input type="file" name="emailFile" />
+							</div>
+
+
+							<!--buttons of the email sender form-->
+							<div class="form-group text-center">
+								<button type="submit"
+									class="btn btn-danger px-5 py-2 border rounded-5 mt-2">Send</button>
+								<button type="reset"
+									class="btn btn-warning px-5 py-2 border rounded-5 mt-2">Reset</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--bootstrap js files-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>
